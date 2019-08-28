@@ -5,7 +5,7 @@ import './Item.css'
 
 const notFinishedStyle = { opacity: 1, textDecoration: 'none', backgroundColor: 'rgb(202, 255, 222)', }
 const finishedStyle = { opacity: 0.35, textDecoration: 'line-through', backgroundColor: 'rgb(222, 202, 255)' }
-const Item = ({ it, i, index }) => {
+const Item = ({ it, i, index, changeStatus }) => {
     const [{ isDragging }, drag] = useDrag({
         item: { type: ItemTypes.CARD, it, i, index },
         collect: monitor => ({
@@ -13,7 +13,7 @@ const Item = ({ it, i, index }) => {
         }),
     })
     return (
-        <div ref={drag} className="itemContainer" style={it.finish ? finishedStyle : notFinishedStyle}>
+        <div ref={drag} className="itemContainer" style={it.finished ? finishedStyle : notFinishedStyle} onClick={() => changeStatus(index,i)}>
             {it.name}
         </div>
     )

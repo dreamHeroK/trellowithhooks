@@ -41,7 +41,7 @@ const Dashboard = (props) => {
                 list[i].todoList.push({
                     name: value,
                     id: new Date().getTime(),
-                    finshed: false
+                    finiished: false
                 })
                 list[i].todoName = ''
                 setBorder({ ...border, list })
@@ -61,6 +61,11 @@ const Dashboard = (props) => {
         setBorder({ ...border })
     },
         [border])
+    const changeStatus = (index, i) => {
+        border.list[index].todoList[i].finished = !border.list[index].todoList[i].finished
+        console.log('init')
+        setBorder({ ...border })
+    }
     return (
         <div>
             <div className="boardName">
@@ -69,7 +74,7 @@ const Dashboard = (props) => {
             <div className="listContent">
                 <div>
                     {border.list && border.list.map((item, index) =>
-                        <List key={item.id} className="listItem" item={item} index={index} addTodo={addTodo} setTodoName={setTodoName} moveCard={moveCard} />
+                        <List key={item.id} className="listItem" item={item} index={index} addTodo={addTodo} setTodoName={setTodoName} moveCard={moveCard} changeStatus={changeStatus} />
                     )}
                     {!border.edit &&
                         <div className="addBtn" onClick={showEdit}>

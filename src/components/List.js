@@ -1,10 +1,9 @@
-import React, { Component, useRef } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import React from 'react'
+import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 import Item from './Item'
 
-const List = ({ item, index, addTodo, setTodoName, moveCard }) => {
-    const ref = useRef(null)
+const List = ({ item, index, addTodo, setTodoName, moveCard,changeStatus }) => {
     const [, drop] = useDrop({
         accept: ItemTypes.CARD,
         drop(item, monitor) {
@@ -27,7 +26,7 @@ const List = ({ item, index, addTodo, setTodoName, moveCard }) => {
                 </h4>
                 <hr />
                 <input onKeyPress={e => addTodo(index, e)} value={item.todoName} onChange={e => setTodoName(index, e)} />
-                {item.todoList && item.todoList.map((it, i) => <Item className="todoItem" key={it.id} it={it} i={i} index={index} />
+                {item.todoList && item.todoList.map((it, i) => <Item className="todoItem" key={it.id} it={it} i={i} index={index} changeStatus={changeStatus}/>
                 )}
             </div>
         </div>
