@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import Test from './components/Test'
+import React, { useState, useEffect, useCallback } from 'react'
 import List from './components/List'
 import './Dashboard.css'
 
@@ -52,6 +51,16 @@ const Dashboard = (props) => {
     const showEdit = () => {
         setBorder({ ...border, edit: true })
     }
+    const moveCard = useCallback((dragIndex, dragI, hoverIndex) => {
+        const dragCard = border.list[dragIndex].todoList[dragI]
+        border.list[dragIndex].todoList.splice(dragI, 1)
+        if (!border.list[hoverIndex].todoList) {
+            border.list[hoverIndex].todoList = []
+        }
+        border.list[hoverIndex].todoList.push(dragCard)
+        setBorder({ ...border })
+    },
+        [border])
     return (
         <div>
             <div className="boardName">
@@ -60,7 +69,7 @@ const Dashboard = (props) => {
             <div className="listContent">
                 <div>
                     {border.list && border.list.map((item, index) =>
-                        <List key={item.id} className="listItem" item={item} index={index} addTodo={addTodo} setTodoName={setTodoName} />
+                        <List key={item.id} className="listItem" item={item} index={index} addTodo={addTodo} setTodoName={setTodoName} moveCard={moveCard} />
                     )}
                     {!border.edit &&
                         <div className="addBtn" onClick={showEdit}>

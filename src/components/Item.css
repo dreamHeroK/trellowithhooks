@@ -1,0 +1,20 @@
+.itemContainer{
+    margin: 10px 0;
+    padding: 14px 7px;
+    background: rgb(241,241,241);
+    border-radius: 4.5px;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+    -webkit-animation: eMLfYp 300ms linear;
+    animation: eMLfYp 300ms linear;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-around;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: space-around;
+    justify-content: space-around;
+    /* background-color: white; */
+}
