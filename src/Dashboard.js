@@ -5,15 +5,20 @@ import './Dashboard.css'
 const Dashboard = (props) => {
     const [border, setBorder] = useState({})
     const [listName, setListName] = useState('')
-
+    const [index, setIndex] = useState(null)
     useEffect(() => {
-        const { state } = props.location;
-        const store = localStorage.getItem('store')
-        if (state) {
-            setBorder(state)
+        const {boardIndex } = props.location.state;
+        const data=JSON.parse(localStorage.getItem('store'))[boardIndex]
+        setIndex(boardIndex)
+        if(data){
+            setBorder(data)
         }
     }, [props.location])
-
+    useEffect(() => {
+        let store = JSON.parse(localStorage.getItem('store'))
+        store[index] = border
+        localStorage.setItem('store', JSON.stringify(store))
+    }, [border, index])
     const addList = e => {
         if (listName.trim !== '') {
             if (e.nativeEvent.keyCode === 13) {

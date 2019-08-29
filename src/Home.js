@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Home.css'
 
 const Example = (props) => {
@@ -12,9 +12,18 @@ const Example = (props) => {
             setBoardName('')
         }
     }
-    const toBoard = (item) => {
-        props.history.push({ pathname: '/Dashboard', state: item })
+    const toBoard = (item, boardIndex) => {
+        props.history.push({ pathname: '/Dashboard', state: { item, boardIndex } })
     }
+    useEffect(() => {
+        const store = JSON.parse(localStorage.getItem('store'))
+        if (store) {
+            setBoardList(store)
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('store', JSON.stringify(boardList))
+    }, [boardList])
     return (
         <div className="buttonContainer">
             {!edit &&
@@ -35,8 +44,8 @@ const Example = (props) => {
                     </div>
                 </div>
             }
-            {boardList.map(item =>
-                <div className="boardItem" key={item.boardId} onClick={() => toBoard(item)}>
+            {boardList.map((item, boardIndex) =>
+                <div className="boardItem" key={item.boardId} onClick={() => toBoard(item, boardIndex)}>
                     <h2>
                         {item.boardName}
                     </h2>
